@@ -5,11 +5,10 @@ import espresso from "../../svg/espresso.gif";
 import { NavLink } from "react-router-dom";
 import "../Machine/index.scss";
 
-
 class Home extends Component {
   render() {
     return (
-      <div className={'grid-container'}>
+      <div className={"grid-container"}>
         <NavLink to="/americano">
           <img src={americano} alt="Americano" />
         </NavLink>

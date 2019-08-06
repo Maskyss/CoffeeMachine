@@ -62,8 +62,8 @@ export class Coffee extends Component {
     }));
   };
   addMilk = () => {
-      this.setState(() => ({ milkAmount: 300 }));
-      this.setState(() => ({ process: "adding milk" }));
+    this.setState(() => ({ milkAmount: 300 }));
+    this.setState(() => ({ process: "adding milk" }));
   };
 
   pressCoffeeMake = () => {
@@ -71,7 +71,13 @@ export class Coffee extends Component {
     this.checkAllUtils();
   };
   checkAllUtils = () => {
-    const { queue, waterTemperature, waterAmount, coffeeAmount, milkAmount } = this.state;
+    const {
+      queue,
+      waterTemperature,
+      waterAmount,
+      coffeeAmount,
+      milkAmount
+    } = this.state;
     const portionList = this.portionWaterList;
     const portionCoffeeList = this.portionCoffeeList;
 
@@ -88,14 +94,14 @@ export class Coffee extends Component {
       );
       return Object.values(portionCoffeeList)[indexPortion];
     });
-    let keyMilk = []
-    if(this.state.milk){
-        keyMilk = queue.map(item => {
-            let indexPortion = Object.keys(this.portionMilkList).findIndex(
-                key => key === item
-            );
-            return Object.values(this.portionMilkList)[indexPortion];
-        });
+    let keyMilk = [];
+    if (this.state.milk) {
+      keyMilk = queue.map(item => {
+        let indexPortion = Object.keys(this.portionMilkList).findIndex(
+          key => key === item
+        );
+        return Object.values(this.portionMilkList)[indexPortion];
+      });
     }
     let counterWater = 0;
     let counterCoffee = 0;
@@ -105,12 +111,12 @@ export class Coffee extends Component {
     for (let k of keysWater) {
       counterWater = counterWater + k;
       counterCoffee = counterCoffee + keysCoffee[index];
-      if(this.state.milk){
-          counterMilk = counterMilk + keyMilk[index];
-          this.checkList["milkAmountChecked"] = utils.controlMilkLevel(
-              milkAmount,
-              counterMilk
-          );
+      if (this.state.milk) {
+        counterMilk = counterMilk + keyMilk[index];
+        this.checkList["milkAmountChecked"] = utils.controlMilkLevel(
+          milkAmount,
+          counterMilk
+        );
       }
       this.checkList["waterAmountChecked"] = utils.controlWaterLevel(
         waterAmount,
@@ -129,16 +135,16 @@ export class Coffee extends Component {
           process: "grinding coffee"
         }));
       }
-      if(!this.state.milk)
-        this.setStateFunction(k, keysCoffee[index],milkAmount);
+      if (!this.state.milk)
+        this.setStateFunction(k, keysCoffee[index], milkAmount);
       else {
-          this.setStateFunction(k, keysCoffee[index],keyMilk[index]);
+        this.setStateFunction(k, keysCoffee[index], keyMilk[index]);
       }
       index += 1;
     }
   };
 
-  setStateFunction(amountPortionWater, amountPortionCoffee,amountPortionMilk) {
+  setStateFunction(amountPortionWater, amountPortionCoffee, amountPortionMilk) {
     const { queue } = this.state;
     // const {checkList} = this.checkList
     if (!Object.values(this.checkList).includes(false)) {
@@ -146,15 +152,14 @@ export class Coffee extends Component {
         portion: prevState.portion.concat(queue.shift().slice(0, 1)),
         process: "coffee is ready", // prevState.portion,
         waterAmount: prevState.waterAmount - amountPortionWater,
-        coffeeAmount: prevState.coffeeAmount - amountPortionCoffee,
+        coffeeAmount: prevState.coffeeAmount - amountPortionCoffee
       }));
-      if(this.state.milk){
-          this.setState((prevState)=>({
-              milkAmount: prevState.milkAmount - amountPortionMilk
-          }))
+      if (this.state.milk) {
+        this.setState(prevState => ({
+          milkAmount: prevState.milkAmount - amountPortionMilk
+        }));
       }
     } else {
-
       this.setState(() => ({
         process: "we need something"
       }));
@@ -187,32 +192,34 @@ export class Coffee extends Component {
     return (
       <div className="grid-container">
         <div>
-            <div className="rightBlock">
-                {Object.keys(this.portionWaterList).map((key) => (
-                    <span>{key === "s" ? "standard" : key === "d" ? "double" : "high"} </span>
-                ))}
+          <div className="rightBlock">
+            {Object.keys(this.portionWaterList).map(key => (
+              <span>
+                {key === "s" ? "standard" : key === "d" ? "double" : "high"}{" "}
+              </span>
+            ))}
+            <br></br>
+            <span>Water </span>
+            {Object.values(this.portionWaterList).map(key => (
+              <span>{key} </span>
+            ))}
+            <br></br>
+            <span>Coffee </span>
+            {Object.values(this.portionCoffeeList).map(key => (
+              <span>{key} </span>
+            ))}
+            {this.state.milk ? (
+              <>
                 <br></br>
-                <span>Water </span>
-                {Object.values(this.portionWaterList).map((key) => (
-                    <span>{key} </span>
+                <span>Milk </span>
+                {Object.values(this.portionMilkList).map(key => (
+                  <span>{key} </span>
                 ))}
-                <br></br>
-                <span>Coffee </span>
-                {Object.values(this.portionCoffeeList).map((key) => (
-                    <span>{key} </span>
-                ))}
-                {this.state.milk ? (
-                    <>
-                        <br></br>
-                    <span>Milk </span>
-                    {Object.values(this.portionMilkList).map((key) => (
-                            <span>{key} </span>
-                        ))}
-                        </>
-                ) : (
-                    <></>
-                )}
-                </div>
+              </>
+            ) : (
+              <></>
+            )}
+          </div>
           <select value={this.state.value} onChange={this.handleChangePicklist}>
             {Object.keys(this.portionWaterList).map(key => (
               <option value={key}>

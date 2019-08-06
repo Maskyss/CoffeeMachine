@@ -2,9 +2,6 @@ import React, { Component } from "react";
 import "./index.scss";
 
 import Header from "../Header/Header";
-import {Coffee} from "./Coffee";
-
-
 
 class Machine extends Component {
   state = {
@@ -16,15 +13,14 @@ class Machine extends Component {
   }
 
   render() {
-
-    const {title} = this.props
+    const { title } = this.props;
     const classNameToggle = `toggle-component ${
       this.state.turning ? " active" : ""
     }`;
 
     return (
       <div>
-        <Header/>
+        <Header />
         <div>
           <h1>{title} Machine</h1>
           <div className={classNameToggle} onClick={() => this.toggle()}>
@@ -39,5 +35,3 @@ class Machine extends Component {
 }
 
 export default Machine;
-
-
