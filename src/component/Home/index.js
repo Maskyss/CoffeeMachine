@@ -3,8 +3,8 @@ import americano from "../../svg/americano.gif";
 import capuchino from "../../svg/capuchino.gif";
 import espresso from "../../svg/espresso.gif";
 import { NavLink } from "react-router-dom";
-import './index.scss'
-const item = {};
+import "../Machine/index.scss";
+
 
 class Home extends Component {
   render() {

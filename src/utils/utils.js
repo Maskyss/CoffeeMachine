@@ -1,4 +1,4 @@
-const portions= {
+export const portions= {
     espresso:{
         portionWaterList: {
             s: 50,
@@ -39,24 +39,19 @@ const portions= {
     },
 }
 
-const utils = {
+export const utils = {
     controlTemperature: (currentTemp) => {
         return currentTemp===100
-    },
-
-    addTemperature:(currentTemp) =>{
-        return currentTemp+5
     },
 
     controlWaterLevel: (currentWaterLevel, neededWaterLevel) => {
         return currentWaterLevel >= neededWaterLevel
     },
     controlCoffeeLevel: (currentCoffeeLevel, neededCoffeeLevel) => {
-
         return currentCoffeeLevel >= neededCoffeeLevel
     },
-    controlMilkLevel: (currentMilkLevel) => {
-        //......
+    controlMilkLevel: (currentMilkLevel, neededMilkLevel) => {
+        return currentMilkLevel >= neededMilkLevel
     },
 
     isEmpty:(obj) => {
@@ -67,4 +62,3 @@ const utils = {
     }
 };
 
-export default {utils,portions};
