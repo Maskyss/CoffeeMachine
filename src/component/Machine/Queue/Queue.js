@@ -8,9 +8,7 @@ class Queue extends Component {
         <p>{title}</p>
         <ul>
           {queue.map((s, key) => (
-            <li key={key}>
-              {s === "s" ? "standard" : s === "d" ? "double" : "high"}{" "}
-            </li>
+            <li key={key}>{s}</li>
           ))}
         </ul>
       </div>

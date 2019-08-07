@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import "./index.scss";
-
 import Header from "../Header/Header";
+import {Coffee} from "./Coffee/Coffee";
 
 class Machine extends Component {
   state = {
     turning: false
   };
 
-  toggle() {
-    this.setState({ turning: !this.state.turning });
+  toggle = () => {
+    this.setState((prevState)=>({ turning: !prevState.turning }));
   }
 
   render() {
@@ -23,7 +23,7 @@ class Machine extends Component {
         <Header />
         <div>
           <h1>{title} Machine</h1>
-          <div className={classNameToggle} onClick={() => this.toggle()}>
+          <div className={classNameToggle} onClick={this.toggle}>
             <div className="toggle-button" />
           </div>
         </div>

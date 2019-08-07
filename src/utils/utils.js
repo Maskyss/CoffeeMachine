@@ -1,41 +1,47 @@
 export const portions = {
   espresso: {
     portionWaterList: {
-      s: 50,
-      d: 100
+      small: 50,
+      double: 100
     },
     portionCoffeeList: {
-      s: 20,
-      d: 40
+      small: 20,
+      double: 40
     },
-    portionMilkList: {}
+    portionMilkList: {
+      small: 0,
+      double: 0
+    }
   },
   americano: {
     portionWaterList: {
-      s: 150,
-      d: 300
+      small: 150,
+      double: 300
     },
     portionCoffeeList: {
-      s: 20,
-      d: 40
-    }
-  },
-  portionMilkList: {},
-  capuchino: {
-    portionWaterList: {
-      s: 100,
-      d: 150,
-      h: 200
-    },
-    portionCoffeeList: {
-      s: 20,
-      d: 40,
-      h: 50
+      small: 20,
+      double: 40
     },
     portionMilkList: {
-      s: 60,
-      d: 100,
-      h: 150
+      small: 0,
+      double: 0
+    }
+  },
+  capuchino: {
+    portionWaterList: {
+      small: 100,
+      double: 150,
+      big: 200
+    },
+    portionCoffeeList: {
+      small: 20,
+      double: 40,
+      big: 50
+    },
+    portionMilkList: {
+      small: 60,
+      double: 100,
+      big: 150
     }
   }
 };
@@ -45,20 +51,7 @@ export const utils = {
     return currentTemp === 100;
   },
 
-  controlWaterLevel: (currentWaterLevel, neededWaterLevel) => {
-    return currentWaterLevel >= neededWaterLevel;
+  controlLevel: (currentLevel, neededLevel) => {
+    return currentLevel >= neededLevel;
   },
-  controlCoffeeLevel: (currentCoffeeLevel, neededCoffeeLevel) => {
-    return currentCoffeeLevel >= neededCoffeeLevel;
-  },
-  controlMilkLevel: (currentMilkLevel, neededMilkLevel) => {
-    return currentMilkLevel >= neededMilkLevel;
-  },
-
-  isEmpty: obj => {
-    for (let key in obj) {
-      return false;
-    }
-    return true;
-  }
 };
