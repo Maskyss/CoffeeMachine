@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./index.scss";
-
+import {Coffee} from "./Coffee";
 import Header from "../Header/Header";
 
 class Machine extends Component {
