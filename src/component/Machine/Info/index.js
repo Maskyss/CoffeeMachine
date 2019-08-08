@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import './index.scss'
 class Info extends Component {
   render() {
     const {
@@ -7,11 +7,11 @@ class Info extends Component {
       waterTemperature,
       coffeeAmount,
       portionList,
-      process,
+      processName,
       milkAmount
     } = this.props;
 
-    const milk = portionList.portionMilkList.small;
+    const milk = portionList.small.milk;
 
     return (
       <div>
@@ -30,7 +30,7 @@ class Info extends Component {
           <></>
         )}
         <h3>Process</h3>
-        {process}
+        {processName}
       </div>
     );
   }

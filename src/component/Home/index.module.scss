@@ -1,0 +1,11 @@
+@import '../../theme/styles/palette.scss';
+@import '../../theme/styles/mixins.scss';
+
+.gridContainer {
+  @include gridContainer;
+  margin-right: 10px;
+}
+img {
+  width: 100%;
+  box-shadow: 0 0 11px $shadowColor;
+}

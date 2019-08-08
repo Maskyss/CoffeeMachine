@@ -1,0 +1,34 @@
+@import '../../../theme/styles/palette.scss';
+
+.toggle-component {
+  width: 50px;
+  height: 20px;
+  background: $notActiveToggle;
+  border: 1px solid $shadowColor;
+  position: relative;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 10px;
+}
+.toggle-component.active {
+  background: $blockOrange;
+  border-color: $backToggleButton;
+}
+.toggle-component.active .toggle-button {
+  right: -2px;
+}
+.toggle-component .toggle-button {
+  position: absolute;
+  top: -3px;
+  height: 26px;
+  width: 26px;
+  background: $backToggleButton;
+  box-shadow: 0 0 5px $shadowColor;
+  border-radius: 50%;
+}
+
+h1 {
+  text-align: center;
+  color: $blockOrange;
+  font-variant-caps: all-petite-caps;
+}

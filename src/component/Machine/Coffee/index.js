@@ -1,9 +1,10 @@
-import { portions, utils } from "../../../utils/utils";
-import Queue from "../Queue/Queue";
+import { portions, utils } from "../../../utils";
+import Queue from "../Queue";
 import React, { Component } from "react";
-import RightInfoBlock from "../RightInfoBlock/RightInfoBlock";
-import Controls from "../Controls/Controls";
-import Info from "../Info/Info";
+import RightInfoBlock from "../RightInfoBlock";
+import Controls from "../Controls";
+import Info from "../Info";
+import Styles from './index.module.scss'
 
 export class Coffee extends Component {
   state = {
@@ -15,10 +16,10 @@ export class Coffee extends Component {
     milkAmount: 100,
     coffeeAmount: 100,
     interval: null,
-    process: "",
+    processName: "",
 
     portionList: portions[`${this.props.title}`] //when first rendering portionList is Empty
-                                                  // so I send in child component nothing
+    // so I send in child component nothing
   };
 
   addTemperature() {
@@ -27,14 +28,14 @@ export class Coffee extends Component {
     if (waterTemperature < 100) {
       this.setState({
         waterTemperature: waterTemperature + 5,
-        process: "bowlings"
+        processName: "bowlings"
       });
     }
     if (utils.controlTemperature(waterTemperature)) {
       clearInterval(interval);
       this.setState({
         interval: null,
-        process: "temperature 100`"
+        processName: "temperature 100`"
       });
     }
   }
@@ -47,39 +48,45 @@ export class Coffee extends Component {
   addWater = () => {
     this.setState({
       waterAmount: 500,
-      process: "adding water"
+      processName: "adding water"
     });
   };
   addCoffee = () => {
     this.setState({
       coffeeAmount: 150,
-      process: "adding coffee"
+      processName: "adding coffee"
     });
   };
   addMilk = () => {
     this.setState({
       milkAmount: 300,
-      process: "adding milk"
+      processName: "adding milk"
     });
   };
 
   pressCoffeeMake = () => {
     const { queue, portionList } = this.state;
+    const arrOfPortion = portionList[[`${queue[0]}`]];
+    if (queue.length !== 0) {
+      const checking = this.checkAllIngridients(arrOfPortion);
+      console.log(checking);
 
-    const arrOfPortion = Object.values(portionList).map(k1 => k1[queue[0]]);
-    const checking = this.checkAllIngridients(arrOfPortion);
-
-    if (checking) {
-      this.setState(prevState => ({
-        waterAmount: prevState.waterAmount - arrOfPortion[0],
-        coffeeAmount: prevState.coffeeAmount - arrOfPortion[1],
-        milkAmount: (prevState.milkAmount = arrOfPortion[2]),
-        readyCoffee: prevState.readyCoffee.concat(queue.shift()),
-        process: "coffee is ready"
-      }));
+      if (checking) {
+        this.setState(prevState => ({
+          waterAmount: prevState.waterAmount - arrOfPortion.water,
+          coffeeAmount: prevState.coffeeAmount - arrOfPortion.coffee,
+          milkAmount: (prevState.milkAmount = arrOfPortion.milk),
+          readyCoffee: prevState.readyCoffee.concat(queue.shift()),
+          processName: arrOfPortion.name + " is ready"
+        }));
+      } else {
+        this.setState({
+          processName: "we need something"
+        });
+      }
     } else {
       this.setState({
-        process: "we need something"
+        processName: "make an order"
       });
     }
   };
@@ -91,10 +98,10 @@ export class Coffee extends Component {
       coffeeAmount
     } = this.state;
     const waterAmountChecked = [
-      utils.controlLevel(waterAmount, arr[0]),
+      utils.controlLevel(waterAmount, arr.water),
       utils.controlTemperature(waterTemperature),
-      utils.controlLevel(coffeeAmount, arr[1]),
-      utils.controlLevel(milkAmount, arr[2])
+      utils.controlLevel(coffeeAmount, arr.coffee),
+      utils.controlLevel(milkAmount, arr.milk)
     ];
     return !waterAmountChecked.includes(false);
   };
@@ -106,7 +113,7 @@ export class Coffee extends Component {
   handleAddCoffee = () => {
     this.setState(prevState => ({
       queue: prevState.queue.concat(prevState.currentPortion),
-      process: "add " + prevState.currentPortion
+      processName: "add " + prevState.currentPortion
     }));
   };
 
@@ -114,20 +121,23 @@ export class Coffee extends Component {
     const { queue, readyCoffee, portionList } = this.state;
 
     return (
-      <div className="grid-container">
-        <div>
+      <div className={Styles.gridContainer}>
+        <div className={Styles.gridColumn}>
           <RightInfoBlock portionList={portionList} />
           <Controls {...this} portionList={portionList} />
         </div>
 
-        <div>
+        <div className={Styles.gridColumn}>
           <Info {...this.state} />
         </div>
-        <div>
-          <Queue title="Queue" queue={queue} />
+        <div className={Styles.gridColumn}>
+        <Queue title="Queue" queue={queue} />
           <Queue title="Ready" queue={readyCoffee} />
         </div>
       </div>
     );
   }
 }
+
+export default Coffee;
+

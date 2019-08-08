@@ -1,0 +1,11 @@
+@import '../../../theme/styles/mixins.scss';
+
+button, select {
+  display: block;
+  margin-bottom: 20px;
+  width: 30%;
+  border-radius: 15px;
+  padding: 7px 5px;
+  background-color: $blockOrange;
+}
+select,button:focus {outline:0;}

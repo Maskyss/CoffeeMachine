@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 import "./index.scss";
-import Header from "../Header/Header";
-import {Coffee} from "./Coffee/Coffee";
+import Header from "../../Header/Header";
+import { Coffee } from "../Coffee";
 
-class Machine extends Component {
+class Toggle extends Component {
   state = {
     turning: false
   };
 
   toggle = () => {
-    this.setState((prevState)=>({ turning: !prevState.turning }));
-  }
+    this.setState(prevState => ({ turning: !prevState.turning }));
+  };
 
   render() {
     const { title } = this.props;
@@ -34,4 +34,4 @@ class Machine extends Component {
   }
 }
 
-export default Machine;
+export default Toggle;
